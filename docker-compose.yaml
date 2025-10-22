@@ -1,18 +1,21 @@
-version: '3.8'
-
 services:
-  database:
+  postgres:
     image: postgres:16
-    container_name: postgres-db
+    container_name: pg_mineiracao
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      POSTGRES_DB: mineiracaodb
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    env_file:
-      - .env
+      - pgdata_mineiracao:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d mineiracaodb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
-  pgdata:
+  pgdata_mineiracao:

@@ -21,14 +21,12 @@ public class DisciplinaController {
         this.turmaRepo = turmaRepo;
     }
 
-    // Listar disciplinas de uma turma
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Disciplina> listar(@PathVariable Long turmaId) {
         return disciplinaRepo.findByTurmaId(turmaId);
     }
 
-    // Criar disciplina
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Disciplina criar(@PathVariable Long turmaId, @RequestBody Disciplina body) {
@@ -38,7 +36,6 @@ public class DisciplinaController {
         return disciplinaRepo.save(body);
     }
 
-    // Atualizar disciplina
     @PutMapping("/{disciplinaId}")
     @ResponseStatus(HttpStatus.OK)
     public Disciplina atualizar(@PathVariable Long turmaId,
@@ -56,7 +53,6 @@ public class DisciplinaController {
         return disciplinaRepo.save(d);
     }
 
-    // Deletar disciplina
     @DeleteMapping("/{disciplinaId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long turmaId, @PathVariable Long disciplinaId) {
@@ -68,4 +64,3 @@ public class DisciplinaController {
         disciplinaRepo.delete(d);
     }
 }
-

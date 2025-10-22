@@ -1,5 +1,6 @@
 package mineiracaodados.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Turma {
     @Column(nullable = false)
     private Integer quantidadeAlunos;
 
+    @JsonIgnore // evita LazyInitializationException e recursão
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disciplina> disciplinas = new ArrayList<>();
 
